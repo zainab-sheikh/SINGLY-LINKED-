@@ -1,0 +1,95 @@
+import java.util.Date;
+
+// Square class representing a square shape
+class Square {
+    private double side;
+    private Date creationTime;
+
+    // Parameterized constructor for creating a Square with a specific side length
+    public Square(double side) {
+        this.side = side;
+        this.creationTime = new Date();
+    }
+
+    // Getter and Setter for side length
+    public double getSide() {
+        return side;
+    }
+
+    public void setSide(double side) {
+        this.side = side;
+    }
+
+    // Method to calculate and return the area of the square
+    public double getArea() {
+        return side * side;
+    }
+
+    // Getter for creation time
+    public Date getCreationTime() {
+        return creationTime;
+    }
+
+    // Override toString method to display Square details
+    @Override
+    public String toString() {
+        return "Square - Side: " + side + ", Area: " + getArea() + ", Created at: " + creationTime;
+    }
+}
+
+// LinkedListNode class representing a node in the LinkedList
+class SquareNode {
+    Square square;
+    SquareNode next;
+
+    // Parameterized constructor for creating a node with a specific Square
+    public SquareNode(Square square) {
+        this.square = square;
+        this.next = null;
+    }
+}
+
+// SquareLinkedList class representing a LinkedList of Square shapes
+public class SquareLinkedList {
+    private SquareNode head;
+
+    // Method to add a Square to the linked list
+    public void addSquare(Square square) {
+        SquareNode newNode = new SquareNode(square);
+        if (head == null) {
+            head = newNode;
+        } else {
+            SquareNode current = head;
+            while (current.next != null) {
+                current = current.next;
+            }
+            current.next = newNode;
+        }
+    }
+
+    // Override toString method to display the details of all squares in the linked list
+    @Override
+    public String toString() {
+        StringBuilder result = new StringBuilder();
+        SquareNode current = head;
+        while (current != null) {
+            result.append(current.square.toString()).append("\n");
+            current = current.next;
+        }
+        return result.toString();
+    }
+
+    public static void main(String[] args) {
+        SquareLinkedList squareList = new SquareLinkedList();
+
+        // Adding 10 squares with random side lengths to the linked list
+        for (int i = 0; i < 10; i++) {
+            double randomSide = Math.random() * 10; // Random side length between 0 and 10
+            Square square = new Square(randomSide);
+            squareList.addSquare(square);
+        }
+
+        // Printing all squares in the linked list
+        System.out.println(squareList);
+    }
+}
